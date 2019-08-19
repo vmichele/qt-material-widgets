@@ -6,8 +6,8 @@
 #include "badgesettingseditor.h"
 #include "checkboxsettingseditor.h"
 #include "fabsettingseditor.h"
-#include "raisedbuttonsettingseditor.h"
-#include "flatbuttonsettingseditor.h"
+#include "containedbuttonsettingseditor.h"
+#include "textbuttonsettingseditor.h"
 #include "iconbuttonsettingseditor.h"
 #include "progresssettingseditor.h"
 #include "circularprogresssettingseditor.h"
@@ -23,6 +23,15 @@
 #include "appbarsettingseditor.h"
 #include "autocompletesettingseditor.h"
 #include "menusettingseditor.h"
+#include "outilinedbuttonsettingseditor.h"
+
+
+
+///TBR
+#include "qtmaterialtextbutton.h"
+#include "qtmaterialoutlinedbutton.h"
+#include "qtmaterialcontainedbutton.h"
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -46,8 +55,8 @@ MainWindow::MainWindow(QWidget *parent)
     BadgeSettingsEditor *badge = new BadgeSettingsEditor;
     CheckBoxSettingsEditor *checkbox = new CheckBoxSettingsEditor;
     FloatingActionButtonSettingsEditor *fab = new FloatingActionButtonSettingsEditor;
-    RaisedButtonSettingsEditor *raisedButton = new RaisedButtonSettingsEditor;
-    FlatButtonSettingsEditor *flatButton = new FlatButtonSettingsEditor;
+    ContainedButtonSettingsEditor *containedButton = new ContainedButtonSettingsEditor;
+    TextButtonSettingsEditor *textButton = new TextButtonSettingsEditor;
     IconButtonSettingsEditor *iconButton = new IconButtonSettingsEditor;
     ProgressSettingsEditor *progress = new ProgressSettingsEditor;
     CircularProgressSettingsEditor *circularProgress = new CircularProgressSettingsEditor;
@@ -63,6 +72,28 @@ MainWindow::MainWindow(QWidget *parent)
     AppBarSettingsEditor *appBar = new AppBarSettingsEditor;
     AutoCompleteSettingsEditor *autocomplete = new AutoCompleteSettingsEditor;
     MenuSettingsEditor *menu = new MenuSettingsEditor;
+    OutilinedButtonSettingsEditor *outlinedButton = new OutilinedButtonSettingsEditor;
+
+    ///TBR
+    auto w = new QWidget;
+    w->setStyleSheet("QWidget { background: white; }");
+    auto l = new QVBoxLayout;
+    auto tb = new QtMaterialTextButton("text button");
+    tb->setFixedWidth(300);
+    l->addWidget(tb);
+    auto ob = new QtMaterialOutlinedButton("outlined button");
+    ob->setFixedWidth(300);
+    l->addWidget(ob);
+    auto cb = new QtMaterialContainedButton("contained button");
+    cb->setFixedWidth(300);
+    l->addWidget(cb);
+    layout->setAlignment(tb, Qt::AlignCenter);
+    layout->setAlignment(ob, Qt::AlignCenter);
+    layout->setAlignment(cb, Qt::AlignCenter);
+    w->setLayout(l);
+    stack->addWidget(w);
+    list->addItem("Buttons");
+    ///TBR
 
     stack->addWidget(appBar);
     stack->addWidget(autocomplete);
@@ -70,19 +101,20 @@ MainWindow::MainWindow(QWidget *parent)
     stack->addWidget(badge);
     stack->addWidget(checkbox);
     stack->addWidget(circularProgress);
+    stack->addWidget(containedButton);
     stack->addWidget(dialog);
     stack->addWidget(drawer);
     stack->addWidget(fab);
-    stack->addWidget(flatButton);
     stack->addWidget(iconButton);
     stack->addWidget(menu);
+    stack->addWidget(outlinedButton);
     stack->addWidget(progress);
     stack->addWidget(radioButton);
-    stack->addWidget(raisedButton);
     stack->addWidget(scrollBar);
     stack->addWidget(slider);
     stack->addWidget(snackbar);
     stack->addWidget(tabs);
+    stack->addWidget(textButton);
     stack->addWidget(textField);
     stack->addWidget(toggle);
 
@@ -92,19 +124,20 @@ MainWindow::MainWindow(QWidget *parent)
     list->addItem("Badge");
     list->addItem("Checkbox");
     list->addItem("Circular Progress");
+    list->addItem("Contained Button");
     list->addItem("Dialog");
     list->addItem("Drawer");
     list->addItem("Floating Action Button");
-    list->addItem("Flat Button");
     list->addItem("Icon Button");
     list->addItem("Menu");
+    list->addItem("Outlined Button");
     list->addItem("Progress");
     list->addItem("Radio Button");
-    list->addItem("Raised Button");
     list->addItem("ScrollBar");
     list->addItem("Slider");
     list->addItem("Snackbar");
     list->addItem("Tabs");
+    list->addItem("Text Button");
     list->addItem("Text Field");
     list->addItem("Toggle");
 
