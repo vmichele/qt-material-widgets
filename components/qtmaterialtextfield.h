@@ -45,8 +45,14 @@ public:
     void setShowInputLine(bool value);
     bool hasInputLine() const;
 
+    void setOutlineColor(const QColor &color);
+    QColor outlineColor() const;
+
+    void setShowOutline(bool value);
+    bool hasOutline() const;
+
 protected:
-    QtMaterialTextField(QtMaterialTextFieldPrivate &d, QWidget *parent = 0);
+    QtMaterialTextField(QtMaterialTextFieldPrivate &d, QWidget *parent = nullptr);
 
     bool event(QEvent *event) Q_DECL_OVERRIDE;
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;

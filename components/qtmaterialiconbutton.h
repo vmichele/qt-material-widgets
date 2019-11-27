@@ -1,11 +1,11 @@
 #ifndef QTMATERIALICONBUTTON_H
 #define QTMATERIALICONBUTTON_H
 
-#include <QtWidgets/QAbstractButton>
+#include <QtWidgets/QPushButton>
 
 class QtMaterialIconButtonPrivate;
 
-class QtMaterialIconButton : public QAbstractButton
+class QtMaterialIconButton : public QPushButton
 {
     Q_OBJECT
 
@@ -31,6 +31,8 @@ protected:
     bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
     void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+    void enterEvent(QEvent *event) Q_DECL_OVERRIDE;
+    void leaveEvent(QEvent *event) Q_DECL_OVERRIDE;
 
     const QScopedPointer<QtMaterialIconButtonPrivate> d_ptr;
 

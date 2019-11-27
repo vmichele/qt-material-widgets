@@ -738,12 +738,25 @@ void QtMaterialButton::updateClipPath()
     d->rippleOverlay->setClipPath(path);
 }
 
-void QtMaterialButton::enterEvent(QEvent*)
+/*!
+ *  \reimp
+ */
+void QtMaterialButton::enterEvent(QEvent* event)
 {
-  QApplication::setOverrideCursor(Qt::PointingHandCursor);
+  Q_UNUSED(event)
+
+  if (isEnabled())
+    QApplication::setOverrideCursor(Qt::PointingHandCursor);
+  else
+    QApplication::restoreOverrideCursor();
 }
 
-void QtMaterialButton::leaveEvent(QEvent*)
+/*!
+ *  \reimp
+ */
+void QtMaterialButton::leaveEvent(QEvent* event)
 {
+  Q_UNUSED(event)
+
   QApplication::restoreOverrideCursor();
 }

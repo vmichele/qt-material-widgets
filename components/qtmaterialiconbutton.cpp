@@ -2,6 +2,7 @@
 #include "qtmaterialiconbutton_p.h"
 #include <QPainter>
 #include <QEvent>
+#include <QtWidgets/QApplication>
 #include "lib/qtmaterialstyle.h"
 #include "lib/qtmaterialrippleoverlay.h"
 
@@ -29,6 +30,8 @@ void QtMaterialIconButtonPrivate::init()
     rippleOverlay->installEventFilter(q);
 
     q->setStyle(&QtMaterialStyle::instance());
+    q->setAttribute(Qt::WA_Hover);
+    q->setMouseTracking(true);
 
     QSizePolicy policy;
     policy.setWidthForHeight(true);
@@ -50,7 +53,7 @@ void QtMaterialIconButtonPrivate::updateRipple()
  */
 
 QtMaterialIconButton::QtMaterialIconButton(const QIcon &icon, QWidget *parent)
-    : QAbstractButton(parent),
+    : QPushButton(parent),
       d_ptr(new QtMaterialIconButtonPrivate(this))
 {
     d_func()->init();
@@ -130,7 +133,7 @@ QColor QtMaterialIconButton::disabledColor() const
 }
 
 QtMaterialIconButton::QtMaterialIconButton(QtMaterialIconButtonPrivate &d, QWidget *parent)
-    : QAbstractButton(parent),
+    : QPushButton(parent),
       d_ptr(&d)
 {
     d_func()->init();
@@ -200,7 +203,10 @@ void QtMaterialIconButton::paintEvent(QPaintEvent *event)
 
     QPainter painter(this);
 
-    QPixmap pixmap = icon().pixmap(iconSize());
+    auto state = QIcon::Off;
+    if (isCheckable() && isChecked())
+      state = QIcon::On;
+    QPixmap pixmap = icon().pixmap(iconSize(), QIcon::Normal, state);
     QPainter icon(&pixmap);
     icon.setCompositionMode(QPainter::CompositionMode_SourceIn);
     icon.fillRect(pixmap.rect(), isEnabled() ? color() : disabledColor());
@@ -209,4 +215,27 @@ void QtMaterialIconButton::paintEvent(QPaintEvent *event)
     const qreal w = pixmap.width();
     const qreal h = pixmap.height();
     painter.drawPixmap(QRect((r.width()-w)/2, (r.height()-h)/2, w, h), pixmap);
+}
+
+/*!
+ *  \reimp
+ */
+void QtMaterialIconButton::enterEvent(QEvent *event)
+{
+  Q_UNUSED(event)
+
+  if (isEnabled())
+    QApplication::setOverrideCursor(Qt::PointingHandCursor);
+  else
+    QApplication::restoreOverrideCursor();
+}
+
+/*!
+ *  \reimp
+ */
+void QtMaterialIconButton::leaveEvent(QEvent *event)
+{
+  Q_UNUSED(event)
+
+  QApplication::restoreOverrideCursor();
 }

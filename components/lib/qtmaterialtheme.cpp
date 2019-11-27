@@ -33,12 +33,19 @@ QtMaterialTheme::QtMaterialTheme(QObject *parent)
     : QObject(parent),
       d_ptr(new QtMaterialThemePrivate(this))
 {
-    setColor("primary1", Material::cyan500);
-    setColor("primary2", Material::cyan700);
-    setColor("primary3", Material::lightBlack);
-    setColor("accent1", Material::pinkA200);
-    setColor("accent2", Material::grey100);
-    setColor("accent3", Material::grey500);
+//    setColor("primary1", Material::cyan500);
+//    setColor("primary2", Material::cyan700);
+//    setColor("primary3", Material::lightBlack);
+//    setColor("accent1", Material::pinkA200);
+//    setColor("accent2", Material::grey100);
+//    setColor("accent3", Material::grey500);
+  setColor("primary1", Material::CoSMoGold);
+  setColor("primary2", Material::CoSMoGray);
+  setColor("primary3", Material::lightBlack);
+  setColor("accent1", Material::CoSMoOrange);
+  setColor("accent2", Material::CoSMoBlue);
+  setColor("accent3", Material::grey500);
+
     setColor("text", Material::darkBlack);
     setColor("alternateText", Material::white);
     setColor("canvas", Material::white);
@@ -147,7 +154,8 @@ void QtMaterialTheme::setColor(const QString &key, Material::Color color)
         d->rgba(0, 0, 0, 0.12),
         d->rgba(255, 255, 255, 1),
         d->rgba(255, 255, 255, 0.87),
-        d->rgba(255, 255, 255, 0.54)
+        d->rgba(255, 255, 255, 0.54),
+        QColor("#FFB039"), QColor("#292F33"), QColor("#F36121"), QColor("#466282"),
     };
 
     d->colors.insert(key, palette[color]);

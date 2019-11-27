@@ -26,11 +26,13 @@ public:
     QColor                           labelColor;
     QColor                           inkColor;
     QColor                           inputLineColor;
+    QColor                           outlineColor;
     QString                          labelString;
     qreal                            labelFontSize;
     bool                             showLabel;
     bool                             showInputLine;
     bool                             useThemeColors;
+    bool                             showOutline;
 };
 
 #endif // QTMATERIALTEXTFIELD_P_H

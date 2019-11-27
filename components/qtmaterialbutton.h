@@ -103,8 +103,8 @@ protected:
 
   virtual void updateClipPath();
 
-  void enterEvent(QEvent*) Q_DECL_OVERRIDE;
-  void leaveEvent(QEvent*) Q_DECL_OVERRIDE;
+  void enterEvent(QEvent* event) Q_DECL_OVERRIDE;
+  void leaveEvent(QEvent* event) Q_DECL_OVERRIDE;
 
   const QScopedPointer<QtMaterialButtonPrivate> d_ptr;
 

@@ -312,7 +312,11 @@ namespace Material
         faintBlack,
         fullWhite,
         darkWhite,
-        lightWhite
+        lightWhite,
+        CoSMoGold,
+        CoSMoGray,
+        CoSMoOrange,
+        CoSMoBlue
     };
 }
 

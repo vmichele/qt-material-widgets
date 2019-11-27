@@ -238,6 +238,11 @@ void QtMaterialTextField::setShowInputLine(bool value)
     }
 
     d->showInputLine = value;
+
+    if (d->showOutline) {
+        d->showOutline = false;
+    }
+
     update();
 }
 
@@ -246,6 +251,51 @@ bool QtMaterialTextField::hasInputLine() const
     Q_D(const QtMaterialTextField);
 
     return d->showInputLine;
+}
+
+void QtMaterialTextField::setOutlineColor(const QColor& color)
+{
+    Q_D(QtMaterialTextField);
+
+    d->outlineColor = color;
+
+    MATERIAL_DISABLE_THEME_COLORS
+    d->stateMachine->setupProperties();
+}
+
+QColor QtMaterialTextField::outlineColor() const
+{
+    Q_D(const QtMaterialTextField);
+
+    if (d->useThemeColors || !d->outlineColor.isValid()) {
+        return QtMaterialStyle::instance().themeColor("primary1");
+    } else {
+        return d->outlineColor;
+    }
+}
+
+void QtMaterialTextField::setShowOutline(bool value)
+{
+    Q_D(QtMaterialTextField);
+
+    if (d->showOutline == value) {
+        return;
+    }
+
+    d->showOutline = value;
+
+    if (d->showInputLine) {
+        d->showInputLine = false;
+    }
+
+    update();
+}
+
+bool QtMaterialTextField::hasOutline() const
+{
+    Q_D(const QtMaterialTextField);
+
+    return d->showOutline;
 }
 
 QtMaterialTextField::QtMaterialTextField(QtMaterialTextFieldPrivate &d, QWidget *parent)
@@ -286,6 +336,7 @@ void QtMaterialTextField::paintEvent(QPaintEvent *event)
     QLineEdit::paintEvent(event);
 
     QPainter painter(this);
+    painter.setRenderHint(QPainter::Antialiasing);
 
     const qreal progress = d->stateMachine->progress();
 
